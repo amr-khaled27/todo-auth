@@ -7,6 +7,7 @@ import {
   removeTodoFromFirestore,
   fetchTodosForUser,
 } from "@/app/utils/firebase";
+import PleaseSignIn from "@/app/_components/PleaseSignIn";
 
 export type Todo = {
   id: string;
@@ -58,6 +59,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
+      {!user && <PleaseSignIn />}
       <div className="fixed top-4 right-4">
         <button
           onClick={() => authContext?.signOut()}
@@ -83,40 +85,42 @@ const Dashboard: React.FC = () => {
             Add
           </button>
         </div>
-        <ul className="w-[300px]">
-          {todos.map((todo, index) => (
-            <li
-              key={index}
-              className="bg-background-200 flex justify-between items-center p-2 mb-2 rounded"
-            >
-              <p className={`${todo.done ? "line-through" : ""}`}>
-                {todo.text}
-              </p>
-              <div>
-                <button
-                  onClick={() => {
-                    updateTodo(todo, index);
-                  }}
-                  className={`ml-2 p-2 rounded duration-300 ${
-                    todo.done ? "bg-green-500" : "bg-red-500"
-                  } text-white`}
-                >
-                  {todo.done ? "Undo" : "Done"}
-                </button>
+        <div className="container mx-auto">
+          <ul>
+            {todos.map((todo, index) => (
+              <li
+                key={index}
+                className="bg-background-200 flex justify-between items-center p-2 mb-2 rounded"
+              >
+                <p className={`${todo.done ? "line-through" : ""}`}>
+                  {todo.text}
+                </p>
+                <div>
+                  <button
+                    onClick={() => {
+                      updateTodo(todo, index);
+                    }}
+                    className={`ml-2 p-2 rounded duration-300 ${
+                      todo.done ? "bg-green-500" : "bg-red-500"
+                    } text-white`}
+                  >
+                    {todo.done ? "Undo" : "Done"}
+                  </button>
 
-                <button
-                  onClick={async () => {
-                    await removeTodoFromFirestore(todo.id);
-                    setTodos(todos.filter((_, i) => i !== index));
-                  }}
-                  className="ml-2 p-2 rounded bg-red-500 text-white"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <button
+                    onClick={async () => {
+                      await removeTodoFromFirestore(todo.id);
+                      setTodos(todos.filter((_, i) => i !== index));
+                    }}
+                    className="ml-2 p-2 rounded bg-red-500 text-white"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
