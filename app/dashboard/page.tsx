@@ -24,6 +24,7 @@ const initialTodo = {
 const Dashboard: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState<Todo>(initialTodo);
+  const [clickedSignOut, setClickedSignOut] = useState<boolean>(false);
   const authContext = useAuth();
   const user = authContext ? authContext.user : null;
 
@@ -59,10 +60,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      {!user && <PleaseSignIn />}
+      {!user && !clickedSignOut ? <PleaseSignIn /> : null}
       <div className="fixed top-4 right-4">
         <button
-          onClick={() => authContext?.signOut()}
+          onClick={() => {
+            setClickedSignOut(true);
+            authContext?.signOut();
+          }}
           className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
         >
           Sign Out
