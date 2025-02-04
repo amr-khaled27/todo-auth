@@ -11,7 +11,7 @@ const PleaseSignIn = () => {
         </p>
         <Link
           href="/"
-          className="text-lg block text-center capitalize bg-[#010104] text-colors-text-50 p-4 w-full rounded-lg"
+          className="text-lg block text-center capitalize bg-[#010104] text-white p-4 w-full rounded-lg"
         >
           back to landing
         </Link>
