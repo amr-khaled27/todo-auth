@@ -8,12 +8,20 @@ import {
 } from "firebase/auth";
 import { app } from "@/app/firebase";
 import Error from "@/app/_components/Error";
+import { useAuth } from "@/app/providers/AuthProvider";
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [displayError, setDisplayError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const authContext = useAuth();
+  const user = authContext ? authContext.user : null;
+
+  if (user) {
+    window.location.href = "/";
+  }
 
   useEffect(() => {
     if (displayError) {

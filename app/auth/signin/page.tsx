@@ -3,12 +3,20 @@ import React, { useEffect, useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/app/firebase";
 import Error from "@/app/_components/Error";
+import { useAuth } from "@/app/providers/AuthProvider";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [displayError, setDisplayError] = useState<boolean>(false);
+
+  const authContext = useAuth();
+  const user = authContext ? authContext.user : null;
+
+  if (user) {
+    window.location.href = "/";
+  }
 
   useEffect(() => {
     if (displayError) {
