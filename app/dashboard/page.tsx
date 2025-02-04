@@ -81,9 +81,7 @@ const Dashboard: React.FC = () => {
         setClickedSignOut={setClickedSignOut}
       />
       <div className="min-h-screen bg-gray-50 p-4">
-        <h1 className="text-3xl font-bold text-primary-500 mb-4 text-gray-900">
-          Todo List
-        </h1>
+        <h1 className="text-3xl font-bold mb-4">Todo List</h1>
         <div className="mb-4 flex justify-center items-center">
           <div className="flex flex-col gap-8 w-fit">
             <div className="flex items-center">
@@ -93,12 +91,12 @@ const Dashboard: React.FC = () => {
                 onChange={(e) =>
                   setNewTodo({ ...newTodo, text: e.target.value })
                 }
-                className="rounded-l-full p-4 focus:outline-none h-14 bg-gray-200 text-colors-background-950 sm:w-[500px]"
+                className="rounded-l-full p-4 focus:outline-none h-14 text-black bg-gray-200 sm:w-[500px]"
                 placeholder="Add a new todo"
               />
               <button
                 onClick={addTodo}
-                className="w-24 bg-colors-text-200 rounded-r-full text-colors-text-50 bg-primary-500 p-2 h-14 hover:bg-primary-600"
+                className="w-24 bg-blue-500 rounded-r-full text-white bg-primary-500 p-2 h-14 hover:bg-primary-600"
               >
                 {adding ? <BeatLoader size={5} color="white" /> : "Add Task"}
               </button>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { app } from "@/app/firebase";
 import { useAuth } from "@/app/providers/AuthProvider";
 import {
@@ -10,6 +11,8 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import SignOut from "./_components/SignOut";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -31,7 +34,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#010104]">
+    <div className="min-h-screen bg-gray-50">
       {user && <SignOut authContext={authContext} />}
       <h1 className="pt-4 text-3xl font-semibold text-center">
         Authenticated Todo App
@@ -55,27 +58,34 @@ export default function Home() {
           <div className="flex flex-col gap-2">
             <button
               onClick={signInWithGoogle}
-              className="px-4 py-2 w-full bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
+              className="px-4 py-2 w-full flex items-center text-lg gap-2 bg-white text-black border border-black rounded-full"
             >
+              <Image
+                src="/googleicon.png"
+                alt="Google Logo"
+                width={34}
+                height={34}
+              />
               Sign in with Google
             </button>
-
-            <p className="text-center">Or</p>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Link
-                className="py-2 text-center bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
-                href="/auth/signup"
-              >
-                Sign Up
-              </Link>
-              <Link
-                className="py-2 text-center bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
-                href="/auth/signin"
-              >
-                Sign In
-              </Link>
-            </div>
+            <Link
+              className="px-4 py-2 w-full grid grid-cols-3 text-center text-lg gap-4 bg-white text-black border border-black rounded-full"
+              href="/auth/signup"
+            >
+              <span className="flex items-center">
+                <FontAwesomeIcon className="ml-2" icon={faUserPlus} />
+              </span>
+              <span>Sign Up</span>
+            </Link>
+            <Link
+              className="px-4 py-2 w-full grid grid-cols-3 text-center text-lg gap-4 bg-white text-black border border-black rounded-full"
+              href="/auth/signin"
+            >
+              <span className="flex items-center">
+                <FontAwesomeIcon className="ml-2" icon={faUser} />
+              </span>
+              <span>Sign In</span>
+            </Link>
           </div>
         </div>
       )}

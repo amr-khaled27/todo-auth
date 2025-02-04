@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply text-colors-text-50;
-  background-color: #010104;
+  background-color: #f9fafb;
 }
 
 .centered {
