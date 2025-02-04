@@ -51,10 +51,6 @@ const SignupPage: React.FC = () => {
     return true;
   };
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -69,13 +65,9 @@ const SignupPage: React.FC = () => {
           const username = email.split("@")[0];
           updateProfile(user, {
             displayName: username,
-          })
-            .then(() => {
-              console.log("Display name updated successfully");
-            })
-            .catch((error) => {
-              console.error("Error updating display name:", error);
-            });
+          }).catch((error) => {
+            console.error("Error updating display name:", error);
+          });
           window.location.href = "/";
         })
         .catch((error) => {
