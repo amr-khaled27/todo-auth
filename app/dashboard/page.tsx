@@ -8,6 +8,7 @@ import {
   fetchTodosForUser,
 } from "@/app/utils/firebase";
 import PleaseSignIn from "@/app/_components/PleaseSignIn";
+import PleaseVerifyYourEmail from "@/app/_components/PleaseVerifyYourEmail";
 
 export type Todo = {
   id: string;
@@ -27,6 +28,13 @@ const Dashboard: React.FC = () => {
   const [clickedSignOut, setClickedSignOut] = useState<boolean>(false);
   const authContext = useAuth();
   const user = authContext ? authContext.user : null;
+  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (user) {
+      setIsEmailVerified(user.emailVerified);
+    }
+  }, [user]);
 
   const addTodo = async () => {
     if (newTodo.text.trim() !== "") {
@@ -61,6 +69,7 @@ const Dashboard: React.FC = () => {
   return (
     <>
       {!user && !clickedSignOut ? <PleaseSignIn /> : null}
+      {user && !isEmailVerified ? <PleaseVerifyYourEmail /> : null}
       <div className="fixed top-4 right-4">
         <button
           onClick={() => {

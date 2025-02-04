@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
   User,
 } from "firebase/auth";
+import Link from "next/link";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -43,7 +44,33 @@ export default function Home() {
           </p>
         </>
       ) : (
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <div className="flex flex-col justify-center items-center h-[calc(100vh_-_52px)]">
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={signInWithGoogle}
+              className="px-4 py-2 w-full bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
+            >
+              Sign in with Google
+            </button>
+
+            <p className="text-center">Or</p>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Link
+                className="py-2 text-center bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
+                href="/auth/signup"
+              >
+                Sign Up
+              </Link>
+              <Link
+                className="py-2 text-center bg-blue-500 text-white duration-300 rounded hover:bg-blue-600"
+                href="/auth/signin"
+              >
+                Sign In
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
