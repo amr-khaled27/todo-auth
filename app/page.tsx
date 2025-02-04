@@ -35,14 +35,19 @@ export default function Home() {
         Authenticated Todo App
       </h1>
       {user ? (
-        <>
-          <p>Welcome, {user.displayName}</p>
-          <p>
-            <a href="/dashboard" className="text-blue-500 underline">
-              Go to Dashboard
-            </a>
-          </p>
-        </>
+        <div className="flex flex-col text-3xl justify-center items-center h-[calc(100vh_-_52px)]">
+          <div className="bg-white text-colors-text-950 p-4 rounded-xl">
+            <p className="text-center">Welcome, {user.displayName}</p>
+            <p>
+              <Link
+                href="/dashboard"
+                className=" bg-[#010104] text-colors-text-50 p-2 rounded-xl block"
+              >
+                Go to Dashboard
+              </Link>
+            </p>
+          </div>
+        </div>
       ) : (
         <div className="flex flex-col justify-center items-center h-[calc(100vh_-_52px)]">
           <div className="flex flex-col gap-2">
