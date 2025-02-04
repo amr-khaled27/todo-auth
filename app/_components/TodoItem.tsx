@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Todo } from "../dashboard/page";
 import { BeatLoader } from "react-spinners";
 import { removeTodoFromFirestore } from "../utils/firebaseFunctions";
@@ -35,10 +35,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
     updateTodo(todo, index);
     setChecked(!checked);
   };
-
-  useEffect(() => {
-    console.log(checked);
-  }, [checked]);
 
   return (
     <li
