@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from "react";
 import { User, onAuthStateChanged, getAuth, signOut } from "firebase/auth";
-import { app } from "@/app/firebaseConfig";
+import { app } from "@/app/firebase";
 
 interface AuthContextType {
   user: User | null;

@@ -7,7 +7,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
+import { db } from "@/app/firebase";
 
 const addTodoToFirestore = async (todo: Todo): Promise<boolean> => {
   const auth = getAuth();

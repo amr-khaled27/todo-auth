@@ -6,7 +6,7 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
-import { app } from "@/app/firebaseConfig";
+import { app } from "@/app/firebase";
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState("");

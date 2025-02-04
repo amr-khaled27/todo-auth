@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { app } from "@/app/firebaseConfig";
+import { app } from "@/app/firebase";
 import { useAuth } from "@/app/providers/AuthProvider";
 import {
   getAuth,
