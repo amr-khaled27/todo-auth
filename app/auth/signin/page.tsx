@@ -1,13 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "@/app/firebaseConfig";
 
-const SignupPage: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,16 +12,14 @@ const SignupPage: React.FC = () => {
 
     const auth = getAuth(app);
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        sendEmailVerification(user);
-        window.location.href = "/";
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "/dashboard";
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("Error signing up:", errorCode, errorMessage);
+        console.error("Error logging in:", errorCode, errorMessage);
       });
   };
 
@@ -33,7 +27,7 @@ const SignupPage: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-colors-background-950">
       <div className="w-full max-w-md p-8 space-y-6 bg-colors-background-900 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-colors-text-50">
-          Sign Up
+          Log In
         </h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
@@ -69,7 +63,7 @@ const SignupPage: React.FC = () => {
               type="submit"
               className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Sign Up
+              Log In
             </button>
           </div>
         </form>
@@ -78,4 +72,4 @@ const SignupPage: React.FC = () => {
   );
 };
 
-export default SignupPage;
+export default LoginPage;
