@@ -4,6 +4,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { app } from "@/app/firebaseConfig";
 
@@ -20,6 +21,16 @@ const SignupPage: React.FC = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         sendEmailVerification(user);
+        const username = email.split("@")[0];
+        updateProfile(user, {
+          displayName: username,
+        })
+          .then(() => {
+            console.log("Display name updated successfully");
+          })
+          .catch((error) => {
+            console.error("Error updating display name:", error);
+          });
         window.location.href = "/";
       })
       .catch((error) => {
