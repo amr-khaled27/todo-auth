@@ -81,7 +81,9 @@ const Dashboard: React.FC = () => {
         setClickedSignOut={setClickedSignOut}
       />
       <div className="min-h-screen bg-gray-50 p-4">
-        <h1 className="text-3xl font-bold text-primary-500 mb-4">Todo List</h1>
+        <h1 className="text-3xl font-bold text-primary-500 mb-4 text-gray-900">
+          Todo List
+        </h1>
         <div className="mb-4 flex justify-center items-center">
           <div className="flex flex-col gap-8 w-fit">
             <div className="flex items-center">
