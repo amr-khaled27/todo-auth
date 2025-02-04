@@ -13,7 +13,7 @@ const PleaseSignIn = () => {
           href="/"
           className="text-lg block text-center capitalize bg-[#010104] text-colors-text-50 p-4 w-full rounded-lg"
         >
-          back to dashboard
+          back to landing
         </Link>
       </div>
     </div>

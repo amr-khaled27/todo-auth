@@ -50,7 +50,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           onClick={() => DeleteTodo(todo, index)}
           className="ml-2 p-2 w-16 text-center rounded bg-red-500 text-white"
         >
-          {deleting ? <BeatLoader size={5} /> : "Delete"}
+          {deleting ? <BeatLoader size={5} color="white" /> : "Delete"}
         </button>
       </div>
     </li>
