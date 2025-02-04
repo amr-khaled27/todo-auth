@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Todo } from "../dashboard/page";
 import { BeatLoader } from "react-spinners";
 import { removeTodoFromFirestore } from "../utils/firebaseFunctions";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 type TodoItemProps = {
   todo: Todo;
@@ -20,6 +22,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   setTodos,
 }) => {
   const [deleting, setDeleting] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(todo.done);
 
   const DeleteTodo = async (todo: Todo, index: number) => {
     setDeleting(true);
@@ -28,29 +31,46 @@ const TodoItem: React.FC<TodoItemProps> = ({
     setDeleting(false);
   };
 
+  const handleCheckboxChange = (todo: Todo, index: number) => {
+    updateTodo(todo, index);
+    setChecked(!checked);
+  };
+
+  useEffect(() => {
+    console.log(checked);
+  }, [checked]);
+
   return (
     <li
+      onClick={() => handleCheckboxChange(todo, index)}
       key={index}
-      className="bg-background-200 flex justify-between items-center p-2 mb-2 rounded"
+      className="cursor-pointer flex justify-between items-center p-2 text-gray-900 border-gray-300 mx-4"
     >
-      <p className={`${todo.done ? "line-through" : ""}`}>{todo.text}</p>
-      <div>
-        <button
-          onClick={() => {
-            updateTodo(todo, index);
-          }}
-          className={`ml-2 p-2 rounded duration-300 ${
-            todo.done ? "bg-green-500" : "bg-red-500"
-          } text-white`}
-        >
-          {todo.done ? "Undo" : "Done"}
-        </button>
+      <div className="flex items-center gap-4">
+        <input
+          type="checkbox"
+          checked={checked}
+          onChange={() => handleCheckboxChange(todo, index)}
+          className="checkbox checkbox-md rounded-full border-4 outline-green-500 checked:bg-green-500 checked:text-white [--chkbg:theme(colors.green.500)] [--chkfg:white]"
+        />
+        <p className={` ${todo.done ? "line-through text-gray-400" : ""}`}>
+          {todo.text}
+        </p>
+      </div>
 
+      <div className="flex items-center">
         <button
-          onClick={() => DeleteTodo(todo, index)}
-          className="ml-2 p-2 w-16 text-center rounded bg-red-500 text-white"
+          onClick={(e) => {
+            e.stopPropagation();
+            DeleteTodo(todo, index);
+          }}
+          className="ml-2 p-2 w-10 h-10 z-50 text-center centered text-lg rounded-full text-gray-400"
         >
-          {deleting ? <BeatLoader size={5} color="white" /> : "Delete"}
+          {deleting ? (
+            <BeatLoader size={5} color="gray" />
+          ) : (
+            <FontAwesomeIcon icon={faTrash} />
+          )}
         </button>
       </div>
     </li>

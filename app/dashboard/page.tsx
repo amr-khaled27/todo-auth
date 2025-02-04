@@ -80,36 +80,41 @@ const Dashboard: React.FC = () => {
         authContext={authContext}
         setClickedSignOut={setClickedSignOut}
       />
-      <div className="min-h-screen bg-[#010104] p-4">
+      <div className="min-h-screen bg-gray-50 p-4">
         <h1 className="text-3xl font-bold text-primary-500 mb-4">Todo List</h1>
-        <div className="mb-4">
-          <input
-            type="text"
-            value={newTodo.text}
-            onChange={(e) => setNewTodo({ ...newTodo, text: e.target.value })}
-            className="border border-primary-500 p-2 rounded text-colors-background-950"
-            placeholder="Add a new todo"
-          />
-          <button
-            onClick={addTodo}
-            className="ml-2 w-24 bg-colors-text-50 text-colors-text-950 bg-primary-500 p-2 rounded hover:bg-primary-600"
-          >
-            {adding ? <BeatLoader size={5} /> : "Add Task"}
-          </button>
-        </div>
-        <div className="container mx-auto">
-          <ul>
-            {todos.map((todo, index) => (
-              <TodoItem
-                key={index}
-                todo={todo}
-                index={index}
-                updateTodo={updateTodo}
-                todos={todos}
-                setTodos={setTodos}
+        <div className="mb-4 flex justify-center items-center">
+          <div className="flex flex-col gap-8 w-fit">
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={newTodo.text}
+                onChange={(e) =>
+                  setNewTodo({ ...newTodo, text: e.target.value })
+                }
+                className="rounded-l-full p-4 focus:outline-none h-14 bg-gray-200 text-colors-background-950 sm:w-[500px]"
+                placeholder="Add a new todo"
               />
-            ))}
-          </ul>
+              <button
+                onClick={addTodo}
+                className="w-24 bg-colors-text-200 rounded-r-full text-colors-text-50 bg-primary-500 p-2 h-14 hover:bg-primary-600"
+              >
+                {adding ? <BeatLoader size={5} color="white" /> : "Add Task"}
+              </button>
+            </div>
+
+            <ul className="rounded-3xl divide-y-2 bg-gray-200">
+              {todos.map((todo, index) => (
+                <TodoItem
+                  key={index}
+                  todo={todo}
+                  index={index}
+                  updateTodo={updateTodo}
+                  todos={todos}
+                  setTodos={setTodos}
+                />
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </>

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "dotenv": "^16.4.7",
     "firebase": "^11.2.0",
     "next": "15.1.6",
@@ -22,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "daisyui": "^4.12.23",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",
