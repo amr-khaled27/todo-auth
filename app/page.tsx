@@ -32,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#010104]">
-      <SignOut authContext={authContext} />
+      {user && <SignOut authContext={authContext} />}
       <h1 className="pt-4 text-3xl font-semibold text-center">
         Authenticated Todo App
       </h1>

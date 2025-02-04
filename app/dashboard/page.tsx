@@ -4,12 +4,13 @@ import { useAuth } from "../providers/AuthProvider";
 import {
   addTodoToFirestore,
   updateTodoDoneInFirestore,
-  removeTodoFromFirestore,
   fetchTodosForUser,
-} from "@/app/utils/firebase";
+} from "@/app/utils/firebaseFunctions";
 import PleaseSignIn from "@/app/_components/PleaseSignIn";
 import PleaseVerifyYourEmail from "@/app/_components/PleaseVerifyYourEmail";
 import SignOut from "../_components/SignOut";
+import TodoItem from "../_components/TodoItem";
+import { BeatLoader } from "react-spinners";
 
 export type Todo = {
   id: string;
@@ -27,9 +28,11 @@ const Dashboard: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState<Todo>(initialTodo);
   const [clickedSignOut, setClickedSignOut] = useState<boolean>(false);
+  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(true);
+  const [adding, setAdding] = useState<boolean>(false);
+
   const authContext = useAuth();
   const user = authContext ? authContext.user : null;
-  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(true);
 
   useEffect(() => {
     if (user) {
@@ -39,11 +42,13 @@ const Dashboard: React.FC = () => {
 
   const addTodo = async () => {
     if (newTodo.text.trim() !== "") {
+      setAdding(true);
       const todoWithId = { ...newTodo, id: new Date().toISOString() };
       const successful = await addTodoToFirestore(todoWithId);
       if (successful) {
         setTodos([...todos, todoWithId]);
         setNewTodo(initialTodo);
+        setAdding(false);
       }
     }
   };
@@ -87,44 +92,22 @@ const Dashboard: React.FC = () => {
           />
           <button
             onClick={addTodo}
-            className="ml-2 bg-primary-500 text-white p-2 rounded hover:bg-primary-600"
+            className="ml-2 w-24 bg-colors-text-50 text-colors-text-950 bg-primary-500 p-2 rounded hover:bg-primary-600"
           >
-            Add
+            {adding ? <BeatLoader size={5} /> : "Add Task"}
           </button>
         </div>
         <div className="container mx-auto">
           <ul>
             {todos.map((todo, index) => (
-              <li
+              <TodoItem
                 key={index}
-                className="bg-background-200 flex justify-between items-center p-2 mb-2 rounded"
-              >
-                <p className={`${todo.done ? "line-through" : ""}`}>
-                  {todo.text}
-                </p>
-                <div>
-                  <button
-                    onClick={() => {
-                      updateTodo(todo, index);
-                    }}
-                    className={`ml-2 p-2 rounded duration-300 ${
-                      todo.done ? "bg-green-500" : "bg-red-500"
-                    } text-white`}
-                  >
-                    {todo.done ? "Undo" : "Done"}
-                  </button>
-
-                  <button
-                    onClick={async () => {
-                      await removeTodoFromFirestore(todo.id);
-                      setTodos(todos.filter((_, i) => i !== index));
-                    }}
-                    className="ml-2 p-2 rounded bg-red-500 text-white"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
+                todo={todo}
+                index={index}
+                updateTodo={updateTodo}
+                todos={todos}
+                setTodos={setTodos}
+              />
             ))}
           </ul>
         </div>
