@@ -9,7 +9,7 @@ import React, {
 import { User, onAuthStateChanged, getAuth, signOut } from "firebase/auth";
 import { app } from "@/app/firebase";
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   signOut: () => void;
 }
@@ -35,8 +35,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const auth = getAuth(app);
     signOut(auth)
       .then(() => {
+        if (window.location.pathname !== "/") {
+          window.location.href = "/";
+        }
         setUser(null);
-        window.location.href = "/";
       })
       .catch((error) => {
         console.error("Sign out error", error);

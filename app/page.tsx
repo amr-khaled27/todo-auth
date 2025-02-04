@@ -9,6 +9,7 @@ import {
   User,
 } from "firebase/auth";
 import Link from "next/link";
+import SignOut from "./_components/SignOut";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
@@ -31,17 +32,18 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#010104]">
+      <SignOut authContext={authContext} />
       <h1 className="pt-4 text-3xl font-semibold text-center">
         Authenticated Todo App
       </h1>
       {user ? (
-        <div className="flex flex-col text-3xl justify-center items-center h-[calc(100vh_-_52px)]">
-          <div className="bg-white text-colors-text-950 p-4 rounded-xl">
+        <div className="flex flex-col text-2xl justify-center items-center h-[calc(100vh_-_52px)]">
+          <div className="bg-white space-y-2 text-colors-text-950 p-4 rounded-xl">
             <p className="text-center">Welcome, {user.displayName}</p>
             <p>
               <Link
                 href="/dashboard"
-                className=" bg-[#010104] text-colors-text-50 p-2 rounded-xl block"
+                className=" bg-[#010104] font-semibold text-center text-colors-text-50 p-2 rounded-xl block"
               >
                 Go to Dashboard
               </Link>

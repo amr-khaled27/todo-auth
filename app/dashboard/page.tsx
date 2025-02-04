@@ -9,6 +9,7 @@ import {
 } from "@/app/utils/firebase";
 import PleaseSignIn from "@/app/_components/PleaseSignIn";
 import PleaseVerifyYourEmail from "@/app/_components/PleaseVerifyYourEmail";
+import SignOut from "../_components/SignOut";
 
 export type Todo = {
   id: string;
@@ -70,17 +71,10 @@ const Dashboard: React.FC = () => {
     <>
       {!user && !clickedSignOut ? <PleaseSignIn /> : null}
       {user && !isEmailVerified ? <PleaseVerifyYourEmail /> : null}
-      <div className="fixed top-4 right-4">
-        <button
-          onClick={() => {
-            setClickedSignOut(true);
-            authContext?.signOut();
-          }}
-          className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
-        >
-          Sign Out
-        </button>
-      </div>
+      <SignOut
+        authContext={authContext}
+        setClickedSignOut={setClickedSignOut}
+      />
       <div className="min-h-screen bg-[#010104] p-4">
         <h1 className="text-3xl font-bold text-primary-500 mb-4">Todo List</h1>
         <div className="mb-4">
