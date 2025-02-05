@@ -13,6 +13,7 @@ import { useAuth } from "@/app/providers/AuthProvider";
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [displayError, setDisplayError] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -55,6 +56,12 @@ const SignupPage: React.FC = () => {
       return false;
     }
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setDisplayError(true);
+      return false;
+    }
+
     setError("");
     return true;
   };
@@ -78,10 +85,9 @@ const SignupPage: React.FC = () => {
           });
           window.location.href = "/";
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.error("Error signing up:", errorCode, errorMessage);
+        .catch(() => {
+          setError("Error creating account, Email may already be in use.");
+          setDisplayError(true);
         });
     } else {
     }
@@ -92,10 +98,10 @@ const SignupPage: React.FC = () => {
       {displayError && <Error message={error} />}
       <div className="flex items-center justify-center min-h-screen bg-colors-background-950">
         <div className="w-full max-w-md p-8 space-y-6 bg-colors-background-900 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center text-colors-text-50">
+          <h2 className="text-2xl font-bold text-gray-900 text-center text-colors-text-50">
             Sign Up
           </h2>
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6 text-gray-900" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium">
                 Email
@@ -105,7 +111,7 @@ const SignupPage: React.FC = () => {
                 name="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 mt-1 border bg-colors-background-700 border-colors-accent-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 mt-1 border bg-gray-300 outline-none border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -119,9 +125,26 @@ const SignupPage: React.FC = () => {
                 name="password"
                 type="password"
                 required
-                className="w-full px-3 py-2 mt-1 border bg-colors-background-700 border-colors-accent-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 mt-1 border bg-gray-300 outline-none border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="confirm-password"
+                className="block text-sm font-medium"
+              >
+                Confirm Password
+              </label>
+              <input
+                id="confirm-password"
+                name="confirm-password"
+                type="password"
+                required
+                className="w-full px-3 py-2 mt-1 border bg-gray-300 outline-none border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div>

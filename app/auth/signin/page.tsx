@@ -47,8 +47,8 @@ const LoginPage: React.FC = () => {
   return (
     <>
       {error && <Error message={error} />}
-      <div className="flex items-center justify-center min-h-screen bg-colors-background-950">
-        <div className="w-full max-w-md p-8 space-y-6 bg-colors-background-900 rounded-lg shadow-md">
+      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="w-full max-w-md p-8 space-y-6 bg-gray-50 text-gray-900 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-center text-colors-text-50">
             Log In
           </h2>
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
                 name="email"
                 type="email"
                 required
-                className="w-full px-3 py-2 mt-1 border bg-colors-background-700 border-colors-accent-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 mt-1 border bg-gray-300 outline-none border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -76,7 +76,7 @@ const LoginPage: React.FC = () => {
                 name="password"
                 type="password"
                 required
-                className="w-full px-3 py-2 mt-1 border bg-colors-background-700 border-colors-accent-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full px-3 py-2 mt-1 border bg-gray-300 outline-none border-gray-500 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
