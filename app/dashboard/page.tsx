@@ -83,8 +83,8 @@ const Dashboard: React.FC = () => {
       <div className="min-h-screen bg-gray-50 p-4">
         <h1 className="text-3xl font-bold mb-4">Todo List</h1>
         <div className="mb-4 flex justify-center items-center">
-          <div className="flex flex-col gap-8 w-fit">
-            <div className="flex items-center">
+          <div className="flex flex-col gap-8">
+            <div className="flex justify-center items-center">
               <input
                 type="text"
                 value={newTodo.text}
@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
               </button>
             </div>
 
-            <ul className="rounded-3xl divide-y-2 bg-gray-200">
+            <ul className="rounded-3xl w-[400px] sm:w-[600px] divide-y-2 bg-gray-200">
               {todos.map((todo, index) => (
                 <TodoItem
                   key={index}

@@ -40,7 +40,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     <li
       onClick={() => handleCheckboxChange(todo, index)}
       key={index}
-      className="cursor-pointer flex justify-between items-center p-2 text-gray-900 border-gray-300 mx-4"
+      className="cursor-pointer overflow-scroll flex justify-between items-center p-2 text-gray-900 border-gray-300 mx-4"
     >
       <div className="flex items-center gap-4">
         <input
