@@ -45,7 +45,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
       <div className="flex items-center gap-4">
         <input
           type="checkbox"
-          checked={checked}
+          checked={todo.done}
           onChange={() => handleCheckboxChange(todo, index)}
           className="checkbox checkbox-md rounded-full border-4 outline-green-500 checked:bg-green-500 checked:text-white [--chkbg:theme(colors.green.500)] [--chkfg:white]"
         />
